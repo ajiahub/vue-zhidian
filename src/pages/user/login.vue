@@ -28,7 +28,7 @@
 <script type="text/javascript">
   import {mapActions} from 'vuex'
   import {port_user, port_code} from 'common/port_uri'
-  import {SET_USER_INFO} from 'store/actions/type'
+  import {SET_USER_INFO, SET_MENU_INFO, SET_LEFT_MENU_INFO} from 'store/actions/type'
 
   export default{
     data(){
@@ -47,7 +47,9 @@
     },
     methods: {
       ...mapActions({
-        set_user_info: SET_USER_INFO
+        set_user_info: SET_USER_INFO,
+        set_menu_info: SET_MENU_INFO,
+        set_left_menu_info: SET_LEFT_MENU_INFO,
       }),
       //提交
       submit_form() {
@@ -57,17 +59,22 @@
           //登录提交
           this.$fetch.api_user.login(this.form)
             .then(({data, msg}) => {
-              console.log(data);
-              console.log(msg);
               this.set_user_info({
-                user: data,
+                user: data.identity,
                 login: true
-              })
+              });
+              //设置全局菜单
+              this.set_menu_info({
+                menu: data.menus,
+              });
+              //设置当前左侧菜单
+              this.set_left_menu_info({
+                left_menu: data.menus.home,
+              });
               this.$message.success(msg)
               setTimeout(this.$router.push({path: '/'}), 500)
             })
             .catch(({code}) => {
-              console.log(code,2222);
               this.load_data = false
               if (code === port_code.error) {
                 this.$notify.info({

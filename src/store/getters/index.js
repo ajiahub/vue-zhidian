@@ -15,5 +15,11 @@ export default {
   //获取用户信息
   [type.GET_USER_INFO]: state => {
     return state.user_info
+  },
+  [type.GET_MENU_INFO]: state => {
+    return state.menu_info
+  },
+  [type.GET_LEFT_MENU_INFO]: state => {
+    return state.left_menu_info
   }
 }

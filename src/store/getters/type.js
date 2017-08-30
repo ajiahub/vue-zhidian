@@ -10,3 +10,5 @@
 
 //获取用户信息
 export const GET_USER_INFO = 'get_user_info'
+export const GET_MENU_INFO = 'get_menu_info'
+export const GET_LEFT_MENU_INFO = 'get_left_menu_info'

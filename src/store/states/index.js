@@ -10,8 +10,11 @@
  */
 
 import {cookieStorage} from 'common/storage'
+import {localStorage} from 'common/storage'
 
 export default {
   //用户信息和是否登录
-  user_info: cookieStorage.get('user_info')
+  user_info: cookieStorage.get('user_info'),
+  menu_info: localStorage.get('menu_info'),
+  left_menu_info: localStorage.get('left_menu_info'),
 }

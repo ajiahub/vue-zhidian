@@ -7,7 +7,7 @@
         router
         :default-active="$route.path">
         <div
-          v-for="(item, index) in current_menu_data"
+          v-for="(item, index) in current_menu_data.left_menu"
           :key="index">
           <el-menu-item
             class="menu-list"
@@ -38,24 +38,15 @@
   </div>
 </template>
 <script type="text/javascript">
-  import {localStorage} from 'common/storage'
-
-  var current_menu_data = localStorage.get('current_left_menu');
+  import {mapGetters} from 'vuex'
+  import {GET_LEFT_MENU_INFO} from 'store/getters/type'
 
   export default{
     name: 'slide',
-    data(){
-      return {
-        current_menu_data: current_menu_data
-      }
-    },
-    watch: {
-      $route (to, from){
-//        console.log(to);
-//        console.log(from);
-//        console.log(localStorage.get('current_left_menu'),'22222222');
-        this.current_menu_data = localStorage.get('current_left_menu');
-      }
+    computed: {
+      ...mapGetters({
+        current_menu_data: GET_LEFT_MENU_INFO
+      })
     },
   }
 </script>

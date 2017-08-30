@@ -29,6 +29,11 @@ import noPageComponent from 'pages/error/404'
 import loginComponent from 'pages/user/login'
 //base table
 import baseTableComponent from 'pages/table/base'
+
+import stockinComponent from 'pages/stockin/list'
+
+import stockinSaveComponent from 'pages/stockin/save'
+
 //sort table
 import sortTableComponent from 'pages/table/sort'
 //save table
@@ -80,70 +85,96 @@ const routes = [{
       auth: true
     }
   }, {
-    path: '/stock',
-    name: 'stock',
+    path: '/parts',
+    name: 'parts',
     component: saveTableComponent,
     meta: {
       title: "配件库存",
       auth: true
     }
-  }, {
-    path: '/service',
-    name: 'service',
-    component: baseTableComponent,
-    meta: {
-      title: "服务项目",
-      auth: true
+  },
+    {
+      path: '/parts/stock_in',
+      component: stockinComponent
+    },
+    {
+      path: '/parts/stock_in/create',
+      component: stockinSaveComponent
+    },
+    {
+      path: '/parts/stock_in/import',
+      component: sortTableComponent
+    },
+    {
+      path: '/service',
+      name: 'service',
+      component: baseTableComponent,
+      meta: {
+        title: "服务项目",
+        auth: true
+      }
     }
-  }, {
-    path: '/wechat',
-    name: 'wechat',
-    component: barChartsComponent,
-    meta: {
-      title: "微信管理",
-      auth: true
+    ,
+    {
+      path: '/wechat',
+      name: 'wechat',
+      component: barChartsComponent,
+      meta: {
+        title: "微信管理",
+        auth: true
+      }
     }
-  }, {
-    path: '/scheme1',
-    name: 'scheme1',
-    component: saveTableComponent,
-    meta: {
-      title: "聚客方案",
-      auth: true
+    ,
+    {
+      path: '/scheme1',
+      name: 'scheme1',
+      component: saveTableComponent,
+      meta: {
+        title: "聚客方案",
+        auth: true
+      }
     }
-  }, {
-    path: '/finance',
-    name: 'finance',
-    component: sortTableComponent,
-    meta: {
-      title: "财务管理",
-      auth: true
+    ,
+    {
+      path: '/finance',
+      name: 'finance',
+      component: sortTableComponent,
+      meta: {
+        title: "财务管理",
+        auth: true
+      }
     }
-  }, {
-    path: '/staff',
-    name: 'staff',
-    component: barChartsComponent,
-    meta: {
-      title: "员工绩效",
-      auth: true
+    ,
+    {
+      path: '/staff',
+      name: 'staff',
+      component: barChartsComponent,
+      meta: {
+        title: "员工绩效",
+        auth: true
+      }
     }
-  }, {
-    path: '/report',
-    name: 'report',
-    component: sortTableComponent,
-    meta: {
-      title: "决策报表",
-      auth: true
+    ,
+    {
+      path: '/report',
+      name: 'report',
+      component: sortTableComponent,
+      meta: {
+        title: "决策报表",
+        auth: true
+      }
     }
-  }, {
-    path: '/setting',
-    name: 'setting',
-    component: barChartsComponent,
-    meta: {
-      title: "系统设置",
-      auth: true
+    ,
+    {
+      path: '/setting',
+      name: 'setting',
+      component: barChartsComponent,
+      meta: {
+        title: "系统设置",
+        auth: true
+      }
     }
-  }]
+  ]
 }]
 
 const router = new VueRouter({

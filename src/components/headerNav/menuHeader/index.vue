@@ -23,7 +23,9 @@
   }
 </style>
 <script type="text/javascript">
+  import {mapActions} from 'vuex'
   import {localStorage} from 'common/storage'
+  import {SET_LEFT_MENU_INFO} from 'store/actions/type'
 
   export default{
     name: 'menuHeader',
@@ -37,7 +39,7 @@
           path: "/user",
         }, {
           title: "配件库存",
-          path: "/stock",
+          path: "/parts",
         }, {
           title: "服务项目",
           path: "/service",
@@ -63,8 +65,12 @@
       }
     },
     methods: {
+      ...mapActions({
+        set_left_menu_info: SET_LEFT_MENU_INFO
+      }),
       update_left_menu: function (index) {
-        var menu = localStorage.get('left_menu');
+        var menus = localStorage.get('menu_info');
+        var menu = menus.menu;
         var current_left_menu = [];
         switch (index) {
           case 0:
@@ -74,7 +80,7 @@
             current_left_menu = menu.user;
             break;
           case 2:
-            current_left_menu = menu.stock;
+            current_left_menu = menu.parts;
             break;
           case 3:
             current_left_menu = menu.service;
@@ -100,7 +106,9 @@
           default:
             current_left_menu = menu.home;
         }
-        localStorage.set('current_left_menu', current_left_menu);
+        this.set_left_menu_info({
+          left_menu: current_left_menu,
+        })
       }
     }
   }

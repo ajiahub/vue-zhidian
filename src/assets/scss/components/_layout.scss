@@ -160,16 +160,17 @@
       }
     }
   }
-  .footer {
-    background: #fff;
-    padding: 15px;
-    color: #7A7676;
-    font-size: 12px;
-    position: static;
-    bottom: 0;
-    width: 100%;
-    border-top: 1px solid #eff0f4;
-  }
+}
+.footer {
+	background: #fff;
+	padding: 15px;
+	color: #7A7676;
+	font-size: 12px;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	border-top: 1px solid #eff0f4;
+	text-align:center;
 }
 
 .dropdown-menu {

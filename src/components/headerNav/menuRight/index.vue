@@ -34,7 +34,7 @@
 <script type="text/javascript">
   import {mapGetters, mapActions} from 'vuex'
   import {GET_USER_INFO} from 'store/getters/type'
-  import {SET_USER_INFO} from 'store/actions/type'
+  import {SET_USER_INFO, SET_MENU_INFO, SET_LEFT_MENU_INFO} from 'store/actions/type'
 
   const USER_OUT = 0
   const USER_INFO = 1
@@ -48,7 +48,9 @@
     },
     methods: {
       ...mapActions({
-        set_user_info: SET_USER_INFO
+        set_user_info: SET_USER_INFO,
+        set_menu_info: SET_MENU_INFO,
+        set_left_menu_info: SET_LEFT_MENU_INFO,
       }),
       //退出
       user_out(){
@@ -61,6 +63,8 @@
             .then(({msg}) => {
               this.$message.success(msg)
               this.set_user_info(null)
+              this.set_menu_info(null)
+              this.set_left_menu_info(null)
               setTimeout(this.$router.replace({name: "login"}), 500)
             })
         }).catch(() => {

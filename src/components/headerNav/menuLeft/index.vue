@@ -6,7 +6,9 @@
   </div>
 </template>
 <script type="text/javascript">
+  import {mapActions} from 'vuex'
   import {localStorage} from 'common/storage'
+  import {SET_LEFT_MENU_INFO} from 'store/actions/type'
 
   export default{
     data(){
@@ -15,11 +17,17 @@
       }
     },
     methods: {
+      ...mapActions({
+        set_left_menu_info: SET_LEFT_MENU_INFO
+      }),
       update_left_menu: function () {
-        var menu = localStorage.get('left_menu');
-        localStorage.set('current_left_menu', menu.home);
+        var menus = localStorage.get('menu_info');
+        var current_left_menu = menus.menu.home;
+        this.set_left_menu_info({
+          left_menu: current_left_menu,
+        });
         this.$router.push({path: 'home'});
       }
-    }
+    },
   }
 </script>
