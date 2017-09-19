@@ -1,27 +1,16 @@
 <template>
-  <div class="scrm-menu">
-    <el-menu mode="horizontal" class="nav-menu" router :default-active="$route.path">
-      <div
-        v-for="(item, index) in header_nav_menu_data"
-        :key="index">
-        <el-menu-item
-          class="nav-menu-item"
-          :index="item.path" v-on:click="update_left_menu(index)">
-          <span v-text="item.title" class="text"></span>
-        </el-menu-item>
-      </div>
-    </el-menu>
+  <div>
+    <div
+      v-for="(item, index) in header_nav_menu_data"
+      :key="index">
+      <el-menu-item
+        class="nav-menu-item"
+        :index="item.path" v-on:click="update_left_menu(index)">
+        <span v-text="item.title" class="text"></span>
+      </el-menu-item>
+    </div>
   </div>
 </template>
-<style>
-  .nav-menu .is-active {
-    background-color: #353f4f !important;
-  }
-
-  .nav-menu .is-active span {
-    color: #65cea7;
-  }
-</style>
 <script type="text/javascript">
   import {mapActions} from 'vuex'
   import {localStorage} from 'common/storage'

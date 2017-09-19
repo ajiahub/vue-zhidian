@@ -14,11 +14,13 @@ import * as port_user from './user'
 import * as port_table from './table'
 import * as port_file from './file'
 import * as port_leftmenu from './leftmenu'
+import * as port_parts from './parts'
 
 export {
   port_code,
   port_user,
   port_table,
   port_file,
-  port_leftmenu
+  port_leftmenu,
+  port_parts,
 }

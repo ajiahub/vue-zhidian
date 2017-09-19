@@ -30,7 +30,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        //target: 'http://storeapi-web.dev.com',
+        //target: 'http://wechatapi.sbzj.com',
         target: 'http://vue-storeapi-web.dev.com',
         changeOrigin: true,
         secure: false,

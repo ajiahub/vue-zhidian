@@ -1,7 +1,6 @@
 <template>
   <div class="panel-title">
-    <span v-if="title" v-text="title"></span>
-    <div class="fr">
+    <div class="fl">
       <slot></slot>
     </div>
   </div>

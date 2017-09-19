@@ -31,7 +31,7 @@ export default function fetch(options) {
       //设置默认根地址
       baseURL: server_base_url,
       //设置请求超时设置
-      timeout: 2000,
+      timeout: 10000,
       //设置请求时的header
       headers: {
         'Authrorization': '',

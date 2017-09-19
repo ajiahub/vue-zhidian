@@ -41,6 +41,11 @@ import saveTableComponent from 'pages/table/save'
 //bar charts
 import barChartsComponent from 'pages/charts/bar'
 
+//parts
+import partsComponent from 'pages/parts/index'
+import partsCategoryComponent from 'pages/parts/category'
+import partsCreateComponent from 'pages/parts/create'
+
 Vue.use(VueRouter)
 
 //使用AMD方式加载
@@ -87,11 +92,21 @@ const routes = [{
   }, {
     path: '/parts',
     name: 'parts',
-    component: saveTableComponent,
+    component: partsComponent,
+    children: [
+      {
+        path: 'category',
+        component: partsCategoryComponent
+      },
+      {
+        path: 'create',
+        component: partsCreateComponent
+      }
+    ],
     meta: {
       title: "配件库存",
       auth: true
-    }
+    },
   },
     {
       path: '/parts/stock_in',

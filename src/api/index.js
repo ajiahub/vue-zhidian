@@ -13,12 +13,14 @@ import * as api_file from './file'
 import * as api_table from './table'
 import * as api_user from './user'
 import * as api_leftmenu from './leftmenu'
+import * as api_parts from './parts'
 
 const apiObj = {
   api_file,
   api_table,
   api_user,
-  api_leftmenu
+  api_leftmenu,
+  api_parts,
 }
 
 const install = function (Vue) {
