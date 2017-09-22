@@ -1,11 +1,11 @@
 <template>
   <div class="panel">
     <panel-title>
-      <el-input style="width: 200px;" class="filter-item" placeholder="配件名称/编号" v-model="inputss">
+      <el-input style="width: 200px;" class="filter-item" placeholder="配件名称/编号" v-model="parts_name">
       </el-input>
-      <el-select v-model="valuess" placeholder="请选择类型">
+      <el-select v-model="parts_type" placeholder="请选择类型">
         <el-option
-          v-for="item in optionsss"
+          v-for="item in datas"
           :key="item.value"
           :label="item.label"
           :value="item.value">
@@ -13,13 +13,13 @@
       </el-select>
       <el-select v-model="warehouse" placeholder="请选择仓库">
         <el-option
-          v-for="item in optionsss"
+          v-for="item in datas"
           :key="item.value"
           :label="item.label"
           :value="item.value">
         </el-option>
       </el-select>
-      <el-button class="filter-item" type="primary" v-waves icon="search">搜索</el-button>
+      <el-button class="filter-item" type="primary" icon="search">搜索</el-button>
     </panel-title>
     <div class="panel-body">
       <el-table
@@ -113,14 +113,12 @@
   import {panelTitle, bottomToolBar} from 'components'
 
   export default{
-    'inputss': '',
-    'values': '',
-    'warehouse': '',
     data(){
       return {
-        inputss: '',
-        valuess: '',
-        optionsss: [{
+        parts_name: '',
+        parts_type: '',
+        warehouse: '',
+        datas: [{
           value: '选项1',
           label: '黄金糕'
         }, {
