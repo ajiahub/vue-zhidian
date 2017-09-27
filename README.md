@@ -68,3 +68,6 @@ npm run build
 ### 效果截图：
 ![image](https://ragonli.com/statics/images/home.png)
 ![image](https://ragonli.com/statics/images/stock.png)
+
+### 扫码加微信交流：
+![image](https://ragonli.com/statics/images/ligang.png)
