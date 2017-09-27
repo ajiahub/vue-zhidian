@@ -1,4 +1,14 @@
-### 项目技术架构
+### 后端技术架构
+***
+*  yiisoft/yii2
+*  yiisoft/yii2-redis
+*  yiisoft/yii2-mongodb
+*  firebase/php-jwt
+*  aliyuncs/oss-sdk-php
+*  php-curl-class/php-curl-class
+*  cornernote/yii2-softdelete
+
+### 前端技术架构
 ***
 *  vue-cli
 *  vue
