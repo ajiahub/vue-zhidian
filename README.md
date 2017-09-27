@@ -59,3 +59,12 @@ npm run build
 ├── .postcssrc.js             // autoprefixer的配置文件
 ├── package.json              // 项目配置文件
 </pre>
+
+### 在线体验:
+网址：http://zhidian.sbzj.com
+用户名：zhidian
+密码：123456
+
+### 效果截图：
+![image](https://ragonli.com/statics/images/home.png)
+![image](https://ragonli.com/statics/images/stock.png)
