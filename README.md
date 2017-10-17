@@ -71,9 +71,9 @@ npm run build
 </pre>
 
 ### 在线体验:
-网址：http://zhidian.sbzj.com
-用户名：zhidian
-密码：123456
+网址：http://zhidian.sbzj.com<br>
+用户名：zhidian<br>
+密码：123456<br>
 
 ### 效果截图：
 ![image](https://ragonli.com/statics/images/home.png)
