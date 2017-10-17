@@ -1,5 +1,8 @@
+//restful api
+export const api = "parts"
+
 //数据列表
-export const list = "/parts/list"
+export const list = "/parts"
 //根据id查询数据
 export const get = "/parts/get"
 //根据id删除数据

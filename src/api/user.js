@@ -13,7 +13,6 @@ import {port_user} from 'common/port_uri'
 
 //登录
 export function login(data) {
-  console.log(data);
   return fetch({
     url: port_user.login,
     method: 'post',

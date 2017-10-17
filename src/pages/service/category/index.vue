@@ -1,25 +1,12 @@
 <template>
   <div class="panel">
     <panel-title>
-      <el-input style="width: 200px;" class="filter-item" placeholder="配件名称/编号" v-model="parts_name">
-      </el-input>
-      <el-select v-model="parts_type" placeholder="请选择类型">
-        <el-option
-          v-for="item in datas"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <el-select v-model="warehouse" placeholder="请选择仓库">
-        <el-option
-          v-for="item in datas"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <el-button class="filter-item" type="primary" icon="search">搜索</el-button>
+      <el-button @click.stop="on_refresh" size="small">
+        <i class="fa fa-refresh"></i>
+      </el-button>
+      <router-link :to="{name: 'serviceCatCreate'}" tag="span">
+        <el-button type="primary" icon="plus" size="small">创建工时项类型</el-button>
+      </router-link>
     </panel-title>
     <div class="panel-body">
       <el-table
@@ -34,49 +21,28 @@
           width="55">
         </el-table-column>
         <el-table-column
-          prop="parts_no"
-          label="配件编号"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="name"
-          label="配件名称">
+          prop="service_cat_id"
+          label="id"
+          width="80">
         </el-table-column>
         <el-table-column
           prop="cat_name"
-          label="类型"
+          label="分类名称">
+        </el-table-column>
+        <el-table-column
+          prop="ord"
+          label="序号"
           width="120">
-        </el-table-column>
-        <el-table-column
-          prop="spec"
-          label="规格"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="warehouse_name"
-          label="所在仓库"
-          width="160">
-        </el-table-column>
-        <el-table-column
-          prop="inventory_formate"
-          label="库存量" width="100">
-        </el-table-column>
-        <el-table-column
-          prop="status"
-          label="状态">
-          <template scope="scope">
-            <el-tag type="danger" v-if="scope.row.status != '正常'">{{ scope.row.status }}</el-tag>
-            <el-tag type="success" v-if="scope.row.status == '正常'">{{ scope.row.status }}</el-tag>
-          </template>
         </el-table-column>
         <el-table-column
           label="操作"
           width="180">
           <template scope="props">
-            <router-link :to="{name: 'stock', params: {id: props.row.id}}" tag="span">
+            <router-link :to="{name: 'serviceCatUpdate', params:{id: props.row.service_cat_id}}" tag="span">
               <el-button type="info" size="small" icon="edit">修改</el-button>
             </router-link>
-            <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row)">删除</el-button>
+            <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row.service_cat_id)">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -94,7 +60,7 @@
           <el-pagination
             @current-change="handleCurrentChange"
             :current-page="currentPage"
-            :page-size="10"
+            :page-size="16"
             layout="total, prev, pager, next"
             :total="total">
           </el-pagination>
@@ -109,32 +75,13 @@
   export default{
     data(){
       return {
-        parts_name: '',
-        parts_type: '',
-        warehouse: '',
-        datas: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
         table_data: null,
         //当前页码
         currentPage: 1,
         //数据总条目
         total: 0,
         //每页显示多少条数据
-        length: 15,
+        length: 16,
         //请求时的loading效果
         load_data: true,
         //批量选择数组
@@ -156,7 +103,7 @@
       //获取数据
       get_table_data(){
         this.load_data = true
-        this.$fetch.api_parts.list({
+        this.$fetch.api_service.cat_list({
           page: this.currentPage,
           length: this.length
         })
@@ -171,7 +118,7 @@
           })
       },
       //单个删除
-      delete_data(item){
+      delete_data(id){
         this.$confirm('此操作将删除该数据, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -179,7 +126,7 @@
         })
           .then(() => {
             this.load_data = true
-            this.$fetch.api_parts.del(item)
+            this.$fetch.api_service.cat_del(id)
               .then(({msg}) => {
                 this.get_table_data()
                 this.$message.success(msg)
@@ -197,7 +144,10 @@
       },
       //批量选择
       on_batch_select(val){
-        this.batch_select = val
+        //console.log(val);
+//          console.log(val.map(item => item.service_cat_id),'aaaaa');
+//          return false;
+        this.batch_select = val.map(item => item.service_cat_id);
       },
       //批量删除
       on_batch_del(){
@@ -208,7 +158,7 @@
         })
           .then(() => {
             this.load_data = true
-            this.$fetch.api_parts.batch_del(this.batch_select)
+            this.$fetch.api_service.cat_batch_del({'ids':this.batch_select})
               .then(({msg}) => {
                 this.get_table_data()
                 this.$message.success(msg)

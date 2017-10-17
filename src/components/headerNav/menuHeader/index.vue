@@ -30,13 +30,13 @@
           title: "配件库存",
           path: "/parts",
         }, {
-          title: "服务项目",
+          title: "工时项目",
           path: "/service",
         }, {
           title: "微信管理",
           path: "/wechat",
         }, {
-          title: "聚客方案",
+          title: "拓客方案",
           path: "/scheme1",
         }, {
           title: "财务管理",

@@ -46,6 +46,11 @@ import partsComponent from 'pages/parts/index'
 import partsCategoryComponent from 'pages/parts/category'
 import partsCreateComponent from 'pages/parts/create'
 
+import serviceComponent from 'pages/service/index'
+import serviceSaveComponent from 'pages/service/save'
+import serviceCategoryComponent from 'pages/service/category/index'
+import serviceCategoryCreateComponent from 'pages/service/category/create'
+
 Vue.use(VueRouter)
 
 //使用AMD方式加载
@@ -122,14 +127,74 @@ const routes = [{
     },
     {
       path: '/service',
-      name: 'service',
-      component: baseTableComponent,
+      component: serviceComponent,
+      children: [
+        {
+          path: 'list',
+          component: serviceComponent
+        },
+        {
+          path: 'import',
+          component: partsCreateComponent
+        },
+        {
+          path: 'cat_create',
+          component: partsCreateComponent
+        },
+        {
+          path: 'log',
+          component: partsCreateComponent
+        }
+      ],
       meta: {
         title: "服务项目",
         auth: true
       }
-    }
-    ,
+    },
+    {
+      path: '/service/create',
+      name: 'serviceCreate',
+      component: serviceSaveComponent,
+      meta: {
+        title: "创建工时项目",
+        auth: true
+      }
+    },
+    {
+      path: '/service/update/:id',
+      name: 'serviceUpdate',
+      component: serviceSaveComponent,
+      meta: {
+        title: "更新工时项目",
+        auth: true
+      }
+    },
+    {
+      path: '/service/category',
+      component: serviceCategoryComponent,
+      meta: {
+        title: "工时分类",
+        auth: true
+      }
+    },
+    {
+      path: '/service/category/create',
+      name: 'serviceCatCreate',
+      component: serviceCategoryCreateComponent,
+      meta: {
+        title: "创建工时类别",
+        auth: true
+      }
+    },
+    {
+      path: '/service/category/update/:id',
+      name: 'serviceCatUpdate',
+      component: serviceCategoryCreateComponent,
+      meta: {
+        title: "更新工时类别",
+        auth: true
+      }
+    },
     {
       path: '/wechat',
       name: 'wechat',
@@ -145,7 +210,7 @@ const routes = [{
       name: 'scheme1',
       component: saveTableComponent,
       meta: {
-        title: "聚客方案",
+        title: "拓客方案",
         auth: true
       }
     }
