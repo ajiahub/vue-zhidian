@@ -11,7 +11,7 @@
       </el-select>
       <el-input style="width: 200px;" class="filter-item" placeholder="工时项名称" v-model="service_name">
       </el-input>
-      <el-button class="filter-item" type="primary" icon="search">搜索</el-button>
+      <el-button class="filter-item" type="primary" icon="search" @click="get_table_data">搜索</el-button>
       <router-link :to="{name: 'serviceCreate'}" tag="span">
         <el-button type="primary" icon="plus">创建工时项</el-button>
       </router-link>
@@ -59,7 +59,7 @@
             <router-link :to="{name: 'serviceUpdate', params:{id: props.row.service_id}}" tag="span">
               <el-button type="info" size="small" icon="edit">修改</el-button>
             </router-link>
-            <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row)">删除</el-button>
+            <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row.service_id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -77,7 +77,7 @@
           <el-pagination
             @current-change="handleCurrentChange"
             :current-page="currentPage"
-            :page-size="10"
+            :page-size="16"
             layout="total, prev, pager, next"
             :total="total">
           </el-pagination>
@@ -133,7 +133,9 @@
         this.load_data = true
         this.$fetch.api_service.list({
           page: this.currentPage,
-          length: this.length
+          length: this.length,
+          cat_id: this.cat_id,
+          service_name: this.service_name
         })
           .then(({data: {result, page, total}}) => {
             this.table_data = result
@@ -146,7 +148,7 @@
           })
       },
       //单个删除
-      delete_data(item){
+      delete_data(id){
         this.$confirm('此操作将删除该数据, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -154,7 +156,7 @@
         })
           .then(() => {
             this.load_data = true
-            this.$fetch.api_service.del(item)
+            this.$fetch.api_service.del(id)
               .then(({msg}) => {
                 this.get_table_data()
                 this.$message.success(msg)
@@ -172,7 +174,9 @@
       },
       //批量选择
       on_batch_select(val){
-        this.batch_select = val
+        //this.batch_select = val
+        this.batch_select = val.map(item => item.service_id);
+        console.log(this.batch_select, '22222222');
       },
       //批量删除
       on_batch_del(){
@@ -183,7 +187,7 @@
         })
           .then(() => {
             this.load_data = true
-            this.$fetch.api_service.batch_del(this.batch_select)
+            this.$fetch.api_service.batch_del({'ids': this.batch_select})
               .then(({msg}) => {
                 this.get_table_data()
                 this.$message.success(msg)

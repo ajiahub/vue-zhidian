@@ -1,11 +1,11 @@
 <template>
   <div class="panel">
     <panel-title>
-      <el-button @click.stop="on_refresh" size="small">
-        <i class="fa fa-refresh"></i>
-      </el-button>
+      <el-input style="width: 200px;" class="filter-item" placeholder="分类名称" v-model="cat_name">
+      </el-input>
+      <el-button class="filter-item" type="primary" icon="search" @click="get_table_data">搜索</el-button>
       <router-link :to="{name: 'serviceCatCreate'}" tag="span">
-        <el-button type="primary" icon="plus" size="small">创建工时项类型</el-button>
+        <el-button type="primary" icon="plus">创建工时项类型</el-button>
       </router-link>
     </panel-title>
     <div class="panel-body">
@@ -41,8 +41,7 @@
             <router-link :to="{name: 'serviceCatUpdate', params:{id: props.row.service_cat_id}}" tag="span">
               <el-button type="info" size="small" icon="edit">修改</el-button>
             </router-link>
-            <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row.service_cat_id)">删除
-            </el-button>
+            <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row.service_cat_id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -76,6 +75,7 @@
     data(){
       return {
         table_data: null,
+        cat_name: '',
         //当前页码
         currentPage: 1,
         //数据总条目
@@ -105,7 +105,8 @@
         this.load_data = true
         this.$fetch.api_service.cat_list({
           page: this.currentPage,
-          length: this.length
+          length: this.length,
+          cat_name: this.cat_name
         })
           .then(({data: {result, page, total}}) => {
             this.table_data = result
@@ -144,9 +145,6 @@
       },
       //批量选择
       on_batch_select(val){
-        //console.log(val);
-//          console.log(val.map(item => item.service_cat_id),'aaaaa');
-//          return false;
         this.batch_select = val.map(item => item.service_cat_id);
       },
       //批量删除
@@ -158,7 +156,7 @@
         })
           .then(() => {
             this.load_data = true
-            this.$fetch.api_service.cat_batch_del({'ids':this.batch_select})
+            this.$fetch.api_service.cat_batch_del({'ids': this.batch_select})
               .then(({msg}) => {
                 this.get_table_data()
                 this.$message.success(msg)
