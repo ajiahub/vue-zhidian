@@ -5,9 +5,9 @@
          element-loading-text="正在登陆中..."
          @keyup.enter="submit_form">
       <div class="login-title">
-        <p><span style="font-size:20px">欢迎使用知店SCRM</span></p>
-        <br/>
-        <p><span style="font-size:14px">规范行业作业规范,传承汽修工匠精神</span></p>
+        <img src="./images/login_logo.png"/>
+        <br/><br/>
+        <p><span style="font-size:13px;color:#666;">规范行业作业规范,传承汽修工匠精神</span></p>
       </div>
       <div class="login-form">
         <el-form ref="form" :model="form" :rules="rules" label-width="0">
@@ -18,7 +18,10 @@
             <el-input type="password" v-model="form.password" placeholder="请输入账户密码：" class="form-input"></el-input>
           </el-form-item>
           <el-form-item class="login-item">
-            <el-button size="large" icon="check" class="form-submit" @click="submit_form"></el-button>
+            <el-button size="large" class="form-submit" @click="submit_form">登 录</el-button>
+          </el-form-item>
+          <el-form-item class="login-copyright">
+            © 版权所有 : 知店SCRM（ www.zdscrm.chexiu.cn ）
           </el-form-item>
         </el-form>
       </div>
@@ -95,30 +98,38 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background-image: url(./images/login_bg.jpg);
+    background-image: url(./images/login_bg.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     .loginWarp {
-      width: 300px;
-      padding: 25px 15px;
-      margin: 100px auto;
+      width: 472px;
+      padding: 25px 15px 5px 15px;
+      margin: 160px auto;
       background-color: #fff;
       border-radius: 5px;
       .login-title {
-        margin-bottom: 25px;
+        margin-bottom: 15px;
         text-align: center;
       }
       .login-item {
+        margin-left: 20px;
+        margin-right: 20px;
         .el-input__inner {
-          margin: 0 !important;
+          margin: 6px 0 !important;
         }
+      }
+      .login-copyright {
+        color: #999;
+        text-align: center;
+        margin-bottom: 0px;
+        margin-top:45px;
       }
       .form-input {
         input {
           margin-bottom: 15px;
           font-size: 12px;
-          height: 40px;
+          height: 46px;
           border: 1px solid #eaeaec;
           background: #eaeaec;
           border-radius: 5px;

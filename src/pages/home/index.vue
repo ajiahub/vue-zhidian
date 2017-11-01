@@ -12,7 +12,7 @@
   export default{
     data(){
       return {
-        msg: 'home page',
+        msg: 'home page'
         //left_menu_data: [],
       }
     },

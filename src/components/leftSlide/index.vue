@@ -3,7 +3,7 @@
     <div class="left-side-inner">
       <el-menu
         class="menu-box"
-        theme="dark"
+        theme="light"
         router
         :default-active="$route.path">
         <div

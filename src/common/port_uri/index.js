@@ -16,6 +16,7 @@ import * as port_file from './file'
 import * as port_leftmenu from './leftmenu'
 import * as port_parts from './parts'
 import * as port_service from './service'
+import * as port_log from './log'
 
 export {
   port_code,
@@ -25,4 +26,5 @@ export {
   port_leftmenu,
   port_parts,
   port_service,
+  port_log,
 }

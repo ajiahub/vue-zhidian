@@ -4,10 +4,9 @@
     <div>
       <left-slide></left-slide>
       <main-content>
-        <router-view></router-view>
+          <router-view></router-view>
       </main-content>
     </div>
-
   </div>
 </template>
 <script type="text/javascript">

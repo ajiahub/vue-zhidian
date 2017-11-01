@@ -25,19 +25,16 @@
           path: "/offline_service",
         }, {
           title: "客户档案",
-          path: "/user",
+          path: "/member",
         }, {
           title: "配件库存",
           path: "/parts",
-        }, {
-          title: "工时项目",
-          path: "/service",
         }, {
           title: "微信管理",
           path: "/wechat",
         }, {
           title: "拓客方案",
-          path: "/scheme1",
+          path: "/scheme",
         }, {
           title: "财务管理",
           path: "/finance",
@@ -50,6 +47,9 @@
         }, {
           title: "系统设置",
           path: "/setting",
+        }, {
+          title: "应用插件",
+          path: "/plugins/my",
         }]
       }
     },
@@ -66,31 +66,31 @@
             current_left_menu = menu.offline_service;
             break;
           case 1:
-            current_left_menu = menu.user;
+            current_left_menu = menu.member;
             break;
           case 2:
             current_left_menu = menu.parts;
             break;
           case 3:
-            current_left_menu = menu.service;
-            break;
-          case 4:
             current_left_menu = menu.wechat;
             break;
-          case 5:
+          case 4:
             current_left_menu = menu.scheme;
             break;
-          case 6:
+          case 5:
             current_left_menu = menu.finance;
             break;
+          case 6:
+            current_left_menu = menu.staff;
+            break;
           case 7:
-            current_left_menu = menu.staff_performance;
+            current_left_menu = menu.report;
             break;
           case 8:
-            current_left_menu = menu.statistics;
+            current_left_menu = menu.setting;
             break;
           case 9:
-            current_left_menu = menu.setting;
+            current_left_menu = menu.plugins;
             break;
           default:
             current_left_menu = menu.home;

@@ -1,6 +1,12 @@
 <template>
   <div class="panel">
     <panel-title :title="$route.meta.title">
+      <el-button @click.stop="on_refresh" size="small">
+        <i class="fa fa-refresh"></i>
+      </el-button>
+      <router-link :to="{name: 'stock'}" tag="span">
+        <el-button type="primary" icon="plus" size="small">添加数据</el-button>
+      </router-link>
     </panel-title>
     <div class="panel-body">
       <el-table
@@ -17,20 +23,17 @@
         <el-table-column
           prop="id"
           label="id"
-          width="80"
-          sortable>
+          width="80">
         </el-table-column>
         <el-table-column
           prop="name"
           label="姓名"
-          width="120"
-          sortable>
+          width="120">
         </el-table-column>
         <el-table-column
           prop="sex"
           label="性别"
-          width="100"
-          sortable>
+          width="100">
           <template scope="props">
             <span v-text="props.row.sex == 1 ? '男' : '女'"></span>
           </template>
@@ -38,25 +41,21 @@
         <el-table-column
           prop="age"
           label="年龄"
-          width="100"
-          sortable>
+          width="100">
         </el-table-column>
         <el-table-column
           prop="birthday"
           label="生日"
-          width="120"
-          sortable>
+          width="120">
         </el-table-column>
         <el-table-column
           prop="zip"
           label="邮编"
-          width="120"
-          sortable>
+          width="120">
         </el-table-column>
         <el-table-column
           prop="address"
-          label="地址"
-          sortable>
+          label="地址">
         </el-table-column>
         <el-table-column
           label="操作"

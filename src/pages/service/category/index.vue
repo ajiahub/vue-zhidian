@@ -4,9 +4,7 @@
       <el-input style="width: 200px;" class="filter-item" placeholder="分类名称" v-model="cat_name">
       </el-input>
       <el-button class="filter-item" type="primary" icon="search" @click="get_table_data">搜索</el-button>
-      <router-link :to="{name: 'serviceCatCreate'}" tag="span">
-        <el-button type="primary" icon="plus">创建工时项类型</el-button>
-      </router-link>
+      <el-button type="primary" icon="plus" @click="handleAdd">创建工时项分类</el-button>
     </panel-title>
     <div class="panel-body">
       <el-table
@@ -41,7 +39,8 @@
             <router-link :to="{name: 'serviceCatUpdate', params:{id: props.row.service_cat_id}}" tag="span">
               <el-button type="info" size="small" icon="edit">修改</el-button>
             </router-link>
-            <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row.service_cat_id)">删除</el-button>
+            <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row.service_cat_id)">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -65,6 +64,29 @@
           </el-pagination>
         </div>
       </bottom-tool-bar>
+      <!--新增界面-->
+      <el-dialog title="新增工时项分类" v-model="addFormVisible" :close-on-click-modal="false">
+        <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
+          <el-form-item label="分类名称:" prop="cat_name">
+            <el-input v-model="addForm.cat_name" placeholder="请输入工时项分类名称" style="width: 250px;"></el-input>
+          </el-form-item>
+          <el-form-item label="排序值:">
+            <el-input-number
+              :max="10000000"
+              :min="0"
+              :value="0"
+              :controls="false"
+              v-model="addForm.ord"
+              placeholder="排序值越小越前"
+              style="width: 250px;">
+            </el-input-number>
+          </el-form-item>
+          <el-form-item>
+            <el-button @click.native="addFormVisible = false">取消</el-button>
+            <el-button type="primary" @click.navive="on_submit_forms" :loading="on_submit_loading">提交</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -85,7 +107,17 @@
         //请求时的loading效果
         load_data: true,
         //批量选择数组
-        batch_select: []
+        batch_select: [],
+        //新增界面是否显示
+        addFormVisible: false,
+        on_submit_loading: false,
+        addForm: {
+          cat_name: null,
+          ord: 0,
+        },
+        addFormRules: {
+          cat_name: [{required: true, message: '分类名称不能为空', trigger: 'blur'}]
+        },
       }
     },
     components: {
@@ -117,6 +149,31 @@
           .catch(() => {
             this.load_data = false
           })
+      },
+      //显示新增界面
+      handleAdd: function () {
+        this.addFormVisible = true;
+        this.addForm = {
+          cat_name: null,
+          ord: 0
+        };
+      },
+      //新增
+      on_submit_forms(){
+        this.$refs.addForm.validate((valid) => {
+          if (!valid) return false
+          this.on_submit_loading = true
+          this.$fetch.api_service.cat_save(this.addForm)
+            .then(({msg}) => {
+              this.$message.success(msg);
+              this.addFormVisible = false;
+              this.on_submit_loading = false;
+              this.$refs['addForm'].resetFields();
+              this.get_table_data();
+            })
+            .catch(() => {
+            })
+        })
       },
       //单个删除
       delete_data(id){

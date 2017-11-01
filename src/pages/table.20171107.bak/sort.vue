@@ -1,6 +1,12 @@
 <template>
   <div class="panel">
     <panel-title :title="$route.meta.title">
+      <el-button @click.stop="on_refresh" size="small">
+        <i class="fa fa-refresh"></i>
+      </el-button>
+      <router-link :to="{name: 'stock'}" tag="span">
+        <el-button type="primary" icon="plus" size="small">添加数据</el-button>
+      </router-link>
     </panel-title>
     <div class="panel-body">
       <el-table
