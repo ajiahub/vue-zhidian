@@ -1,7 +1,7 @@
 <template>
   <div class="panel">
     <panel-title>
-      <el-select v-model="cat_id" placeholder="请选择工时项类别" style="width:180px">
+      <el-select v-model="cat_id" placeholder="客户类型" style="width:180px">
         <el-option
           v-for="item in cat_name_options"
           :key="item.service_cat_id"
@@ -13,7 +13,7 @@
       </el-input>
       <el-button class="filter-item" type="primary" icon="search" @click="get_table_data">搜索</el-button>
       <router-link :to="{name: 'serviceCreate'}" tag="span">
-        <el-button type="primary" icon="plus">创建工时项</el-button>
+        <el-button type="primary" icon="plus">新建客户</el-button>
       </router-link>
     </panel-title>
     <div class="panel-body">
@@ -29,37 +29,66 @@
           width="55">
         </el-table-column>
         <el-table-column
-          prop="service_name"
-          label="工时项名称">
+          prop="name"
+          label="姓名" width="120">
         </el-table-column>
         <el-table-column
-          prop="cat_name"
-          label="工时项类型"
-          width="280">
-        </el-table-column>
-        <el-table-column
-          prop="sales"
-          label="售价"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="sales"
-          label="成本价"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="fr"
-          label="来源"
+          prop="mobile"
+          label="客户电话"
           width="160">
         </el-table-column>
         <el-table-column
-          label="操作"
-          width="180">
+          label="车牌号"
+          width="160">
+          <template scope="scope">
+            <el-popover trigger="hover" placement="top">
+              <p>品牌: {{ scope.row.brand_name }}</p>
+              <p>车型: {{ scope.row.model_name }}</p>
+              <div slot="reference" class="name-wrapper">
+                <el-tag size="medium">{{ scope.row.car_no }}</el-tag>
+              </div>
+            </el-popover>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="is_vip"
+          label="客户类型"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          prop="is_wechat_fans"
+          label="微信注册"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          prop="service_times"
+          label="服务次数"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          prop="consume_total"
+          label="消费总额"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          prop="last_service_at"
+          label="最近到店"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          prop="adviser_id"
+          label="客户顾问"
+          width="160">
+        </el-table-column>
+        <el-table-column
+          label="操作">
           <template scope="props">
-            <router-link :to="{name: 'serviceUpdate', params:{id: props.row.service_id}}" tag="span">
-              <el-button type="info" size="small" icon="edit">修改</el-button>
+            <router-link :to="{name: 'serviceUpdate', params:{id: props.row.member_id}}" tag="span">
+              <el-button type="info" size="small" icon="edit">查看</el-button>
             </router-link>
-            <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row.service_id)">删除
+            <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row.member_id)">升级为会员
+
+
             </el-button>
           </template>
         </el-table-column>
@@ -114,7 +143,6 @@
       bottomToolBar
     },
     created(){
-      this.get_cat_data()
       this.get_table_data()
     },
     methods: {
@@ -122,17 +150,10 @@
       on_refresh(){
         this.get_table_data()
       },
-      //获取分类
-      get_cat_data(){
-        this.$fetch.api_service.cat_list()
-          .then(({data}) => {
-            this.cat_name_options = data.result
-          })
-      },
       //获取数据
       get_table_data(){
         this.load_data = true
-        this.$fetch.api_service.list({
+        this.$fetch.api_member.list({
           page: this.currentPage,
           length: this.length,
           cat_id: this.cat_id,
@@ -157,7 +178,7 @@
         })
           .then(() => {
             this.load_data = true
-            this.$fetch.api_service.del(id)
+            this.$fetch.api_member.del(id)
               .then(({msg}) => {
                 this.get_table_data()
                 this.$message.success(msg)
@@ -188,7 +209,7 @@
         })
           .then(() => {
             this.load_data = true
-            this.$fetch.api_service.batch_del({'ids': this.batch_select})
+            this.$fetch.api_member.batch_del({'ids': this.batch_select})
               .then(({msg}) => {
                 this.get_table_data()
                 this.$message.success(msg)

@@ -46,7 +46,6 @@ export default function fetch(options) {
       //设置请求时的header
       headers: {
         'Authorization': getAuthorization(),
-        //'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC92dWUtc3RvcmVhcGktd2ViLmRldi5jb20iLCJhdWQiOiJodHRwOlwvXC92dWUtc3RvcmVhcGktd2ViLmRldi5jb20iLCJpYXQiOjE1MDc3OTkzNzMsIm5iZiI6MTUwNzc5OTM3MywiZXhwIjoxNTEwMzkxMzczLCJqdGkiOjF9.K5sU_7CbPBfdovA8UEen9f-18A4KnzZb6JtJOMxafGk',
         'X-Powered-By': 'zhidian team'
       }
     })

@@ -28,18 +28,18 @@ module.exports = {
     autoOpenBrowser: false,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
-      '/api': {
-        target: 'http://wechatapi.sbzj.com',
-        //target: 'http://vue-storeapi-web.dev.com',
-        changeOrigin: true,
-        secure: false,
-        pathRewrite: {
-          '^/api': ''
-        }
-      }
-    },
-    //proxyTable: {},
+    // proxyTable: {
+    //   '/api': {
+    //     //target: 'http://wechatapi.sbzj.com',
+    //     target: 'http://vue-storeapi-web.dev.com',
+    //     changeOrigin: true,
+    //     secure: false,
+    //     pathRewrite: {
+    //       '^/api': ''
+    //     }
+    //   }
+    // },
+    proxyTable: {},
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)

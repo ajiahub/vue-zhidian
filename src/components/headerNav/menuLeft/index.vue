@@ -26,7 +26,7 @@
         this.set_left_menu_info({
           left_menu: current_left_menu,
         });
-        this.$router.push({path: 'home'});
+        this.$router.push({path: '/home'});
       }
     },
   }
