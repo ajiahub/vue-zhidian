@@ -18,6 +18,7 @@ import * as port_parts from './parts'
 import * as port_service from './service'
 import * as port_log from './log'
 import * as port_member from './member'
+import * as port_car from './car'
 
 export {
   port_code,
@@ -29,4 +30,5 @@ export {
   port_service,
   port_log,
   port_member,
+  port_car,
 }

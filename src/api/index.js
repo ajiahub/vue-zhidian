@@ -17,6 +17,7 @@ import * as api_parts from './parts'
 import * as api_service from './service'
 import * as api_log from './log'
 import * as api_member from './member'
+import * as api_car from './car'
 
 const apiObj = {
   api_file,
@@ -27,6 +28,7 @@ const apiObj = {
   api_service,
   api_log,
   api_member,
+  api_car,
 }
 
 const install = function (Vue) {

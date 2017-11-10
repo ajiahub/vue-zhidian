@@ -1,18 +1,18 @@
 <template>
   <div class="panel">
     <panel-title>
-      <el-select v-model="cat_id" placeholder="客户类型" style="width:180px">
+      <el-select v-model="vip_id" placeholder="客户类型" style="width:180px">
         <el-option
-          v-for="item in cat_name_options"
-          :key="item.service_cat_id"
-          :label="item.cat_name"
-          :value="item.service_cat_id">
+          v-for="item in member_options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
         </el-option>
       </el-select>
       <el-input style="width: 200px;" class="filter-item" placeholder="姓名/手机号/车牌号" v-model="name">
       </el-input>
       <el-button class="filter-item" type="primary" icon="search" @click="get_table_data">搜索</el-button>
-      <router-link :to="{name: 'serviceCreate'}" tag="span">
+      <router-link :to="{name: 'memberCreate'}" tag="span">
         <el-button type="primary" icon="plus">新建客户</el-button>
       </router-link>
     </panel-title>
@@ -88,7 +88,6 @@
             </router-link>
             <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row.member_id)">升级为会员
 
-
             </el-button>
           </template>
         </el-table-column>
@@ -123,8 +122,17 @@
     data(){
       return {
         name: '',
-        cat_id: '',
-        cat_name_options: [],
+        vip_id: '',
+        member_options: [{
+          value: '1',
+          label: '散客'
+        }, {
+          value: '2',
+          label: '普通客户'
+        }, {
+          value: '3',
+          label: 'VIP客户'
+        }],
         table_data: null,
         //当前页码
         currentPage: 1,
@@ -156,8 +164,8 @@
         this.$fetch.api_member.list({
           page: this.currentPage,
           length: this.length,
-          cat_id: this.cat_id,
-          service_name: this.service_name
+          vip_id: this.vip_id,
+          name: this.name
         })
           .then(({data: {result, page, total}}) => {
             this.table_data = result
@@ -198,7 +206,6 @@
       on_batch_select(val){
         //this.batch_select = val
         this.batch_select = val.map(item => item.service_id);
-        console.log(this.batch_select, '22222222');
       },
       //批量删除
       on_batch_del(){

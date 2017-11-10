@@ -5,41 +5,114 @@
          v-loading="load_data"
          element-loading-text="拼命加载中">
       <el-row>
-        <el-col :span="8">
-          <el-form ref="form" :model="form" :rules="rules" label-width="100px">
-            <el-form-item label="工时项名称:" prop="service_name">
-              <el-input v-model="form.service_name" placeholder="请输入工时项名称" style="width: 250px;"></el-input>
-            </el-form-item>
-            <el-form-item label="工时项类型:" prop="cat_id">
-              <el-select v-model="form.cat_id" placeholder="请选择工时项类型">
-                <el-option
-                  v-for="item in cat_name_options"
-                  :key="item.service_cat_id"
-                  :label="item.cat_name"
-                  :value="item.service_cat_id">
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="工时项售价:" prop="sales"
-                          :rules="[{ required: true, message: '售价不能为空'},{ type: 'number', message: '售价必须为数字值'}]">
-              <el-input type="number" v-model.number="form.sales" placeholder="请输入工时项售价" auto-complete="off"
-                        style="width: 250px;"></el-input>
-            </el-form-item>
-            <el-form-item label="成本价:" prop="cost"
-                          :rules="[{ type: 'number', message: '成本价必须为数字值'}]">
-              <el-input type="number" v-model.number="form.cost" placeholder="仅报表使用" auto-complete="off"
-                        style="width: 250px;"></el-input>
-            </el-form-item>
+        <el-form :inline="true" ref="form" :model="form" :rules="rules">
+          <fieldset>
+            <legend>身份信息</legend>
+            <el-col :span="6">
+              <el-form-item label="车牌号:" prop="car_no">
+                <el-input v-model="form.car_no" placeholder="请输入客户车牌号"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="姓名:" prop="name">
+                <el-input v-model="form.name" placeholder="请输入客户姓名"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="性别:" prop="sex">
+                <el-radio class="radio" v-model="form.sex" label="1">男</el-radio>
+                <el-radio class="radio" v-model="form.sex" label="2">女</el-radio>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="联系方式:" prop="mobile">
+                <el-input v-model="form.mobile" placeholder="请输入客户联系方式"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="客户来源:" prop="fr">
+                <el-select v-model="form.fr" placeholder="请选择客户来源">
+                  <el-option
+                    v-for="item in fr_options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="客户身份证号:" prop="IDcard">
+                <el-input v-model="form.IDcard" placeholder="请输入客户身份证号"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="客户生日:" prop="birthday">
+                <el-date-picker type="date" v-model="form.birthday" @change="getBirthday" format="yyyy-MM-dd"
+                                placeholder="请选择客户生日"></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="客户地址:" prop="address">
+                <el-input v-model="form.address" placeholder="请输入客户地址"></el-input>
+              </el-form-item>
+            </el-col>
+          </fieldset>
+          <fieldset>
+            <legend>车辆信息</legend>
+            <el-col :span="6">
+              <el-form-item label="品牌/车型:" prop="carOptions">
+                <el-cascader
+                  placeholder="搜索或选择汽车品牌/车型"
+                  v-model="form.selectedCarOptions"
+                  :options="carOptions"
+                  filterable
+                  change-on-select
+                ></el-cascader>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="购车时间:" prop="buy_at">
+                <el-date-picker type="date" v-model="form.buy_at" @change="getBuyAt" format="yyyy-MM-dd"
+                                placeholder="请选择购车时间"></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="车架号(VIN):" prop="vin">
+                <el-input v-model="form.vin" placeholder="请输入车架号"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="发动机号:" prop="engine_no">
+                <el-input v-model="form.engine_no" placeholder="请输入发动机号"></el-input>
+              </el-form-item>
+            </el-col>
+          </fieldset>
+          <el-col :span="24" style="text-align:center">
             <el-form-item>
               <el-button type="primary" @click="on_submit_form" :loading="on_submit_loading">立即提交</el-button>
               <el-button @click="$router.back()">取消</el-button>
             </el-form-item>
-          </el-form>
-        </el-col>
+          </el-col>
+        </el-form>
       </el-row>
     </div>
   </div>
 </template>
+<style>
+  fieldset {
+    border: 1px dashed #ccc;
+    margin-bottom: 26px;
+  }
+
+  legend {
+    color: #999;
+    font-size: 13px;
+    padding: 2px 5px;
+    /* for IE */
+    background-color: #fff;
+  }
+</style>
 <script type="text/javascript">
   import {panelTitle} from 'components'
 
@@ -47,31 +120,62 @@
     data(){
       return {
         form: {
-          service_name: null,
-          cat_id: '',
-          sales: '',
-          cost: 0
+          car_no: null,
+          name: null,
+          sex: "1",
+          mobile: null,
+          fr: '',
+          IDcard: null,
+          birthday: null,
+          buy_at: null,
+          address: null,
+          selectedCarOptions: []
         },
-        cat_name_options: [],
+        carOptions: [],
+        fr_options: [{
+          value: '1',
+          label: '直接到店'
+        }, {
+          value: '2',
+          label: '网络平台'
+        }, {
+          value: '3',
+          label: '客户介绍'
+        }, {
+          value: '4',
+          label: '商家联盟'
+        }, {
+          value: '5',
+          label: '其它'
+        }],
+        sTime: null,
         route_id: this.$route.params.id,
         load_data: false,
         on_submit_loading: false,
         rules: {
-          service_name: [{required: true, message: '工时项名称不能为空', trigger: 'blur'}],
-          cat_id: [{required: true, message: '工时项类型不能为空'}]
+          car_no: [{required: true, message: '请完善车牌号', trigger: 'blur'}],
+          name: [{required: true, message: '请完善客户姓名', trigger: 'blur'}],
+          sex: [{required: true, message: '请完善性别', trigger: 'blur'}],
+          mobile: [{required: true, message: '请完善联系方式', trigger: 'blur'}],
         }
       }
     },
     created(){
-      this.get_cat_data();
+      this.get_car_conf();
       this.route_id && this.get_form_data()
     },
     methods: {
-      //获取分类
-      get_cat_data(){
-        this.$fetch.api_service.cat_list()
+      getBirthday(val) {
+        this.form.birthday = val;//这个sTime是在data中声明的，也就是v-model绑定的值
+      },
+      getBuyAt(val) {
+        this.form.buy_at = val;//这个sTime是在data中声明的，也就是v-model绑定的值
+      },
+      //获取汽车分类
+      get_car_conf(){
+        this.$fetch.api_car.CarConf()
           .then(({data}) => {
-            this.cat_name_options = data.result
+            this.carOptions = data;
           })
       },
       //获取数据
@@ -91,7 +195,7 @@
         this.$refs.form.validate((valid) => {
           if (!valid) return false
           this.on_submit_loading = true
-          this.$fetch.api_service.save(this.form)
+          this.$fetch.api_member.save(this.form)
             .then(({msg}) => {
               this.$message.success(msg)
               setTimeout(this.$router.back(), 500)
