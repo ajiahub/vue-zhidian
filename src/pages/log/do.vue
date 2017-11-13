@@ -11,6 +11,7 @@
         v-loading="load_data"
         element-loading-text="拼命加载中"
         border
+        size="medium"
         style="width: 100%;">
         <el-table-column
           prop="_id"

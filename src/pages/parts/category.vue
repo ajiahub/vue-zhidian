@@ -14,6 +14,7 @@
         v-loading="load_data"
         element-loading-text="拼命加载中"
         border
+        size="medium"
         @selection-change="on_batch_select"
         style="width: 100%;">
         <el-table-column
@@ -34,9 +35,6 @@
           prop="sex"
           label="性别"
           width="100">
-          <template scope="props">
-            <span v-text="props.row.sex == 1 ? '男' : '女'"></span>
-          </template>
         </el-table-column>
         <el-table-column
           prop="age"
@@ -57,14 +55,12 @@
           prop="address"
           label="地址">
         </el-table-column>
-        <el-table-column
-          label="操作"
-          width="180">
-          <template scope="props">
+        <el-table-column label="操作">
+          <template slot-scope="scope">
             <router-link :to="{name: 'stock', params: {id: props.row.id}}" tag="span">
-              <el-button type="info" size="small" icon="edit">修改</el-button>
+              <el-button type="info" size="mini" icon="edit">修改</el-button>
             </router-link>
-            <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row)">删除</el-button>
+            <el-button type="danger" size="mini" icon="delete" @click="delete_data(props.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

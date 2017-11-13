@@ -27,6 +27,7 @@
         v-loading="load_data"
         element-loading-text="拼命加载中"
         border
+        size="medium"
         @selection-change="on_batch_select"
         style="width: 100%;">
         <el-table-column
@@ -64,7 +65,7 @@
         <el-table-column
           prop="status"
           label="状态">
-          <template scope="scope">
+          <template slot-scope="scope">
             <el-tag type="danger" v-if="scope.row.status != '正常'">{{ scope.row.status }}</el-tag>
             <el-tag type="success" v-if="scope.row.status == '正常'">{{ scope.row.status }}</el-tag>
           </template>
@@ -72,8 +73,8 @@
         <el-table-column
           label="操作"
           width="180">
-          <template scope="props">
-            <router-link :to="{name: 'stock', params: {id: props.row.id}}" tag="span">
+          <template slot-scope="scope">
+            <router-link :to="{}" tag="span">
               <el-button type="info" size="small" icon="edit">修改</el-button>
             </router-link>
             <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row)">删除</el-button>

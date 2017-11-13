@@ -22,7 +22,7 @@
         v-loading="load_data"
         element-loading-text="拼命加载中"
         border
-        @selection-change="on_batch_select"
+        size="medium"
         style="width: 100%;">
         <el-table-column
           type="selection"
@@ -38,17 +38,9 @@
           width="160">
         </el-table-column>
         <el-table-column
+          prop="car_no"
           label="车牌号"
           width="160">
-          <template scope="scope">
-            <el-popover trigger="hover" placement="top">
-              <p>品牌: {{ scope.row.brand_name }}</p>
-              <p>车型: {{ scope.row.model_name }}</p>
-              <div slot="reference" class="name-wrapper">
-                <el-tag size="medium">{{ scope.row.car_no }}</el-tag>
-              </div>
-            </el-popover>
-          </template>
         </el-table-column>
         <el-table-column
           prop="is_vip"
@@ -80,28 +72,17 @@
           label="客户顾问"
           width="160">
         </el-table-column>
-        <el-table-column
-          label="操作">
-          <template scope="props">
-            <router-link :to="{name: 'serviceUpdate', params:{id: props.row.member_id}}" tag="span">
-              <el-button type="info" size="small" icon="edit">查看</el-button>
-            </router-link>
-            <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row.member_id)">升级为会员
-
-            </el-button>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button
+              size="mini">编辑</el-button>
+            <el-button
+              size="mini"
+              type="danger">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
       <bottom-tool-bar>
-        <el-button
-          type="danger"
-          icon="delete"
-          size="small"
-          :disabled="batch_select.length === 0"
-          @click="on_batch_del"
-          slot="handler">
-          <span>批量删除</span>
-        </el-button>
         <div slot="page">
           <el-pagination
             @current-change="handleCurrentChange"
@@ -177,56 +158,11 @@
             this.load_data = false
           })
       },
-      //单个删除
-      delete_data(id){
-        this.$confirm('此操作将删除该数据, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        })
-          .then(() => {
-            this.load_data = true
-            this.$fetch.api_member.del(id)
-              .then(({msg}) => {
-                this.get_table_data()
-                this.$message.success(msg)
-              })
-              .catch(() => {
-              })
-          })
-          .catch(() => {
-          })
-      },
       //页码选择
       handleCurrentChange(val) {
         this.currentPage = val
         this.get_table_data()
       },
-      //批量选择
-      on_batch_select(val){
-        //this.batch_select = val
-        this.batch_select = val.map(item => item.service_id);
-      },
-      //批量删除
-      on_batch_del(){
-        this.$confirm('此操作将批量删除选择数据, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        })
-          .then(() => {
-            this.load_data = true
-            this.$fetch.api_member.batch_del({'ids': this.batch_select})
-              .then(({msg}) => {
-                this.get_table_data()
-                this.$message.success(msg)
-              })
-              .catch(() => {
-              })
-          })
-          .catch(() => {
-          })
-      }
     }
   }
 </script>

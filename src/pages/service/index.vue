@@ -22,6 +22,7 @@
         v-loading="load_data"
         element-loading-text="拼命加载中"
         border
+        size="medium"
         @selection-change="on_batch_select"
         style="width: 100%;">
         <el-table-column
@@ -55,7 +56,7 @@
         <el-table-column
           label="操作"
           width="180">
-          <template scope="props">
+          <template slot-scope="props">
             <router-link :to="{name: 'serviceUpdate', params:{id: props.row.service_id}}" tag="span">
               <el-button type="info" size="small" icon="edit">修改</el-button>
             </router-link>
