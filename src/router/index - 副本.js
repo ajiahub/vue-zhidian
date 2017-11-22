@@ -18,8 +18,8 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 //import components
-//layout page warp component
-import LayoutComponent from 'pages/App'
+//view page warp component
+import viewPageComponent from 'pages/App'
 
 //home
 import homeComponent from 'pages/home'
@@ -59,12 +59,7 @@ import serviceCategoryCreateComponent from 'pages/service/category/create'
 
 //插件
 import myPluginsComponent from 'pages/plugins/my'
-import pluginsMallComponent from 'pages/plugins/mall'
-
-//setting
-import importMemberComponent from 'pages/setting/import/member'
-import importServiceComponent from 'pages/setting/import/service'
-import importPartsComponent from 'pages/setting/import/parts'
+import PluginsMallComponent from 'pages/plugins/mall'
 
 Vue.use(VueRouter)
 
@@ -84,7 +79,7 @@ const routes = [{
 }, {
   path: '/',
   redirect: '/home',
-  component: LayoutComponent,
+  component: viewPageComponent,
   children: [{
     path: '/home',
     name: 'home',
@@ -109,40 +104,22 @@ const routes = [{
       title: "登录日志",
       auth: true
     }
-  }]
-}, {
-  path: '/offline_service',
-  redirect: '/offline_service',
-  component: LayoutComponent,
-  meta: {
-    title: "维修开单",
-    auth: true
-  },
-  children: [{
+  }, {
     path: '/offline_service',
     name: 'offline_service',
     component: baseTableComponent,
     meta: {
       title: "维修开单",
       auth: true
-    },
-  }]
-}, {
-  path: '/member',
-  redirect: '/member',
-  component: LayoutComponent,
-  meta: {
-    title: "客户档案",
-    auth: true
-  },
-  children: [{
+    }
+  }, {
     path: '/member',
     name: 'member',
     component: memberComponent,
     meta: {
       title: "客户档案",
       auth: true
-    },
+    }
   }, {
     path: '/member/create',
     name: 'memberCreate',
@@ -159,187 +136,164 @@ const routes = [{
       title: "更新客户",
       auth: true
     }
-  }
-  ]
-}, {
-  path: '/parts',
-  redirect: '/parts',
-  component: LayoutComponent,
-  meta: {
-    title: "配件库存",
-    auth: true
-  },
-  children: [
-    {
-      path: '/parts',
-      name: 'parts',
-      component: partsComponent,
-      meta: {
-        title: "配件库存",
-        auth: true
+  }, {
+    path: '/parts',
+    name: 'parts',
+    component: partsComponent,
+    children: [
+      {
+        path: 'category',
+        component: partsCategoryComponent
+      },
+      {
+        path: 'create',
+        component: partsCreateComponent
       }
-    }, {
-      path: '/category',
-      name: 'category',
-      component: partsCategoryComponent,
-      meta: {
-        title: "维修开单",
-        auth: true
+    ],
+    meta: {
+      title: "配件库存",
+      auth: true
+    },
+  }, {
+    path: '/parts/stock_in',
+    component: stockinComponent
+  }, {
+    path: '/parts/stock_in/create',
+    component: stockinSaveComponent
+  }, {
+    path: '/parts/stock_in/import',
+    component: sortTableComponent
+  }, {
+    path: '/conf/service',
+    component: serviceComponent,
+    children: [
+      {
+        path: 'list',
+        component: serviceComponent
       },
-    }, {
-      path: '/category/create',
-      name: 'categoryCreate',
-      component: partsCreateComponent,
-      meta: {
-        title: "维修开单",
-        auth: true
+      {
+        path: 'import',
+        component: partsCreateComponent
       },
-    }, {
-      path: '/parts/stock_in',
-      component: stockinComponent
-    }, {
-      path: '/parts/stock_in/create',
-      component: stockinSaveComponent
-    }, {
-      path: '/parts/stock_in/import',
-      component: sortTableComponent
+      {
+        path: 'cat_create',
+        component: partsCreateComponent
+      },
+      {
+        path: 'log',
+        component: partsCreateComponent
+      }
+    ],
+    meta: {
+      title: "服务项目",
+      auth: true
     }
-  ]
-}, {
-  path: '/wechat',
-  redirect: '/wechat',
-  component: LayoutComponent,
-  meta: {
-    title: "微信管理",
-    auth: true
-  },
-  children: [{
+  }, {
+    path: '/conf/service/create',
+    name: 'serviceCreate',
+    component: serviceSaveComponent,
+    meta: {
+      title: "创建工时项目",
+      auth: true
+    }
+  }, {
+    path: '/conf/service/update/:id',
+    name: 'serviceUpdate',
+    component: serviceSaveComponent,
+    meta: {
+      title: "更新工时项目",
+      auth: true
+    }
+  }, {
+    path: '/conf/service/cat',
+    component: serviceCategoryComponent,
+    meta: {
+      title: "工时分类",
+      auth: true
+    }
+  }, {
+    path: '/conf/service/cat/create',
+    name: 'serviceCatCreate',
+    component: serviceCategoryCreateComponent,
+    meta: {
+      title: "创建工时类别",
+      auth: true
+    }
+  }, {
+    path: '/conf/service/cat/update/:id',
+    name: 'serviceCatUpdate',
+    component: serviceCategoryCreateComponent,
+    meta: {
+      title: "更新工时类别",
+      auth: true
+    }
+  }, {
     path: '/wechat',
     name: 'wechat',
     component: barChartsComponent,
     meta: {
       title: "微信管理",
       auth: true
-    },
-  }]
-}, {
-  path: '/scheme',
-  redirect: '/scheme',
-  component: LayoutComponent,
-  meta: {
-    title: "拓客方案",
-    auth: true
-  },
-  children: [{
+    }
+  }, {
     path: '/scheme',
     name: 'scheme',
     component: saveTableComponent,
     meta: {
       title: "拓客方案",
       auth: true
-    },
-  }]
-}, {
-  path: '/finance',
-  redirect: '/finance',
-  component: LayoutComponent,
-  meta: {
-    title: "财务管理",
-    auth: true
-  },
-  children: [{
+    }
+  }, {
     path: '/finance',
     name: 'finance',
-    component: saveTableComponent,
+    component: sortTableComponent,
     meta: {
       title: "财务管理",
       auth: true
-    },
-  }]
-}, {
-  path: '/staff',
-  redirect: '/staff',
-  component: LayoutComponent,
-  meta: {
-    title: "员工绩效",
-    auth: true
-  },
-  children: [{
+    }
+  }, {
     path: '/staff',
     name: 'staff',
     component: sortTableComponent,
     meta: {
       title: "员工绩效",
       auth: true
-    },
-  }]
-}, {
-  path: '/report',
-  redirect: '/report',
-  component: LayoutComponent,
-  meta: {
-    title: "决策报表",
-    auth: true
-  },
-  children: [{
+    }
+  }, {
     path: '/report',
     name: 'report',
     component: barChartsComponent,
     meta: {
       title: "决策报表",
       auth: true
-    },
-  }]
-}, {
-  path: '/setting',
-  redirect: '/setting',
-  component: LayoutComponent,
-  meta: {
-    title: "系统设置",
-    auth: true
-  },
-  children: [
-    {path: '/setting', component: sortTableComponent, meta: {title: "系统设置", auth: true}},
-    {path: '/conf/service', component: serviceComponent, meta: {title: "服务项目", auth: true}},
-    {path: '/conf/service/create', name: 'serviceCreate', component: serviceSaveComponent, meta: {title: "创建工时项目", auth: true}},
-    {path: '/conf/service/update/:id', name: 'serviceUpdate', component: serviceSaveComponent, meta: {title: "更新工时项目", auth: true}},
-    {path: '/conf/service/cat', component: serviceCategoryComponent, meta: {title: "工时分类", auth: true}},
-    {path: '/conf/service/cat/create', name: 'serviceCatCreate', component: serviceCategoryCreateComponent, meta: {title: "创建工时类别", auth: true}},
-    {path: '/conf/service/cat/update/:id', name: 'serviceCatUpdate', component: serviceCategoryCreateComponent, meta: {title: "更新工时类别", auth: true}},
-    {path: '/conf/import/member', component: importMemberComponent, meta: {title: "导入客户", auth: true}},
-    {path: '/conf/import/service', component: importServiceComponent, meta: {title: "导入工时项", auth: true}},
-    {path: '/conf/import/parts', component: importPartsComponent, meta: {title: "导入配件", auth: true}},
-  ]
-}, {
-  path: '/plugins/my',
-  redirect: '/plugins/my',
-  component: LayoutComponent,
-  meta: {
-    title: "已安装插件",
-    auth: true
-  },
-  children: [
-    {
-      path: '/plugins/my',
-      name: 'myPlugins',
-      component: myPluginsComponent,
-      meta: {
-        title: "已安装插件",
-        auth: true
-      },
-    },
-    {
-      path: '/plugins/mall',
-      name: 'allPlugins',
-      component: pluginsMallComponent,
-      meta: {
-        title: "插件商城",
-        auth: true
-      }
     }
+  }, {
+    path: '/setting',
+    name: 'setting',
+    component: sortTableComponent,
+    meta: {
+      title: "系统设置",
+      auth: true
+    }
+  }, {
+    path: '/plugins/my',
+    name: 'myPlugins',
+    component: myPluginsComponent,
+    meta: {
+      title: "已安装插件",
+      auth: true
+    }
+  }, {
+    path: '/plugins/mall',
+    name: 'allPlugins',
+    component: PluginsMallComponent,
+    meta: {
+      title: "插件商城",
+      auth: true
+    }
+  }
   ]
-}
-]
+}]
 const router = new VueRouter({
   routes,
   mode: 'hash', //default: hash ,history

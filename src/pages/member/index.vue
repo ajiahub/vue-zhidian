@@ -73,12 +73,11 @@
           width="160">
         </el-table-column>
         <el-table-column label="操作">
-          <template slot-scope="scope">
-            <el-button
-              size="mini">编辑</el-button>
-            <el-button
-              size="mini"
-              type="danger">删除</el-button>
+          <template slot-scope="props">
+            <router-link :to="{name: 'member', params:{id: props.row.member_id}}" tag="span">
+              <el-button type="info" size="small" icon="el-icon-view">查看</el-button>
+            </router-link>
+            <el-button type="danger" size="small" icon="el-icon-upload2" @click="">升级为会员</el-button>
           </template>
         </el-table-column>
       </el-table>

@@ -16,22 +16,12 @@ import {Message} from 'element-ui'
 import store from 'store'
 import {SET_USER_INFO} from 'store/actions/type'
 import {server_base_url} from 'common/config'
-import {cookieStorage} from 'common/storage'
+import {getAuthorization} from 'common/authorization'
 
 //设置用户信息action
 const setUserInfo = function (user) {
   store.dispatch(SET_USER_INFO, user)
 }
-
-const getAuthorization = function () {
-  var userInfo = cookieStorage.get('user_info');
-  var authorization = '';
-  if (Object.keys(userInfo).length != 0) {
-    authorization = userInfo.user.authorization;
-  }
-  return authorization;
-}
-
 
 export default function fetch(options) {
   return new Promise((resolve, reject) => {

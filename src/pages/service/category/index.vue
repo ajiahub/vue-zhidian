@@ -66,7 +66,7 @@
         </div>
       </bottom-tool-bar>
       <!--新增界面-->
-      <el-dialog title="新增工时项分类" v-model="addFormVisible" :close-on-click-modal="false">
+      <el-dialog title="新增工时项分类" :visible.sync="addFormVisible" width="36%">
         <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
           <el-form-item label="分类名称:" prop="cat_name">
             <el-input v-model="addForm.cat_name" placeholder="请输入工时项分类名称" style="width: 250px;"></el-input>
