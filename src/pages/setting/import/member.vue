@@ -10,14 +10,15 @@
               name="imageFile"
               action="http://vue-storeapi-web.dev.com/import/excel"
               :headers="uploadHeader"
+              :data="extraParam"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
-              multiple
-              :limit="3"
+              :limit="1"
               :on-exceed="handleExceed"
+              :on-success="handleSuccess"
               :file-list="fileList">
               <el-button size="small" type="primary">点击上传</el-button>
-              <div slot="tip" class="el-upload__tip">只能上传.csv格式文件，且文件大小不超过5M(限100000条以内)</div>
+              <div slot="tip" class="el-upload__tip">只能上传.csv格式文件，且单次上传文件大小不超过2M(限20000条)</div>
             </el-upload>
           </el-col>
         </el-row>
@@ -33,7 +34,7 @@
         <el-row>
           <el-col :span="12">
             <div class="import-submit">
-              <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+              <el-button type="primary" @click="submitForm('ruleForm')">立即上传</el-button>
               <el-button @click="resetForm('ruleForm')">重置</el-button>
             </div>
           </el-col>
@@ -58,11 +59,11 @@
         </el-table-column>
         <el-table-column
           prop="address"
-          label="成功">
+          label="成功记录数">
         </el-table-column>
         <el-table-column
           prop="address"
-          label="失败">
+          label="失败记录数">
         </el-table-column>
         <el-table-column
           prop="address"
@@ -110,20 +111,19 @@
 </style>
 <script type="text/javascript">
   import {getAuthorization} from 'common/authorization'
+  import {server_base_url} from 'common/config'
 
   export default {
     data() {
       return {
-        importForm: {},
+        importForm: {'taskHash': ''},
         rules: {},
         uploadHeader: {
           'Authorization': getAuthorization()
         },
-        fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {
-          name: 'food2.jpeg',
-          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-        }],
-        tips: ['请按固定格式导入文件', '若手机号码存在，导入的数据会覆盖原有的数据;', '每次最多只能导入5M内，100000条数据'],
+        extraParam: {'type': 1},
+        fileList: [],
+        tips: ['1.请按固定格式导入文件', '2.仅限制导入.csv格式的excel文件', '3.每次导入限2M或2万行数据'],
         tableData: [{
           date: '2016-05-02',
           name: '王小虎',
@@ -145,13 +145,26 @@
     },
     methods: {
       handleRemove(file, fileList) {
+        console.log('1111111111');
         console.log(file, fileList);
       },
       handlePreview(file) {
+        console.log('2222222222');
         console.log(file);
       },
       handleExceed(files, fileList) {
-        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+        console.log('33333333');
+        this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      },
+      handleSuccess(response, file, fileList){
+        if (response.code == 0) {
+          this.importForm.taskHash = response.data.taskHash;
+        } else {
+          this.$message.error(response.msg);
+        }
+      },
+      submitForm(){
+
       }
     }
   }

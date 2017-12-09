@@ -28,7 +28,7 @@
           prop="sex"
           label="性别"
           width="100">
-          <template scope="props">
+          <template slot-scope="props">
             <span v-text="props.row.sex == 1 ? '男' : '女'"></span>
           </template>
         </el-table-column>
@@ -54,8 +54,8 @@
         <el-table-column
           label="操作"
           width="180">
-          <template scope="props">
-            <router-link :to="{name: 'stock', params: {id: props.row.id}}" tag="span">
+          <template slot-scope="props">
+            <router-link :to="{name: 'stock'}" tag="span">
               <el-button type="info" size="small" icon="edit">修改</el-button>
             </router-link>
             <el-button type="danger" size="small" icon="delete" @click="delete_data(props.row)">删除</el-button>
