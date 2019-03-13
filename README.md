@@ -76,8 +76,8 @@ npm run build
 密码：123456<br>
 
 ### 效果截图：
-![image](https://ragonli.com/statics/images/home.png)
-![image](https://ragonli.com/statics/images/stock.png)
+![image](http://li.sbzj.com/statics/images/home.png)
+![image](http://li.sbzj.com/statics/images/stock.png)
 
 ### 扫码加微信交流：
-![image](https://ragonli.com/statics/images/ligang.png)
+![image](http://li.sbzj.com/statics/images/ligang.png)
