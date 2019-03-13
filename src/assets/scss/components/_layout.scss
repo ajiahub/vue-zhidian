@@ -61,6 +61,7 @@ $nav-color:#545c64;
     color: #fff;
     .nav-menu-item {
       background-color: $nav-color;
+            float: left;
       color: #fff;
     }
     :hover {
