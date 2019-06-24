@@ -1,20 +1,8 @@
-/**
- * Created by zzmhot on 2017/3/23.
- *
- * 主程序入口
- *
- * @author: zzmhot
- * @github: https://github.com/zzmhot
- * @email: zzmhot@163.com
- * @Date: 2017/3/23 18:19
- * @Copyright(©) 2017 by zzmhot.
- *
- */
-
 //导入样式
 import 'normalize.css'
 import 'font-awesome/scss/font-awesome.scss'
 import 'element-ui/lib/theme-chalk/index.css'
+
 //import 'element-theme-default';
 //导入Vue框架
 import Vue from 'vue'
@@ -23,15 +11,13 @@ import ElementUI from 'element-ui'
 //导入组件
 import router from './router'
 //导入状态管理器
-import store from 'store'
+import store from './store'
 //导入请求框架
 import api from './api'
 //导入自定义插件
 import Plugins from 'plugins'
 //导入主视图文件
 import App from './App'
-//导入mock数据
-//import './mock'
 
 //使用element-ui
 Vue.use(ElementUI, {size: 'medium'})
@@ -48,8 +34,11 @@ Vue.config.productionTip = false
 //是否开启工具调试
 Vue.config.devtools = process.env.NODE_ENV === 'development'
 
+/* eslint-disable no-new */
 new Vue({
+  el: '#app',
   router,
   store,
-  ...App
-}).$mount('mainbody')
+  components: { App },
+  template: '<App/>'
+})
