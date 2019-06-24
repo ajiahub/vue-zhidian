@@ -1,7 +1,7 @@
 {
   "name": "vue-zhidian",
   "version": "1.0.0",
-  "description": "YII2+VUE2技术验证",
+  "description": "YII2+VUE2项目验证",
   "author": "ligang <2144713621@qq.com>",
   "private": true,
   "scripts": {
@@ -18,6 +18,7 @@
     "jquery": "^3.2.1",
     "js-base64": "^2.1.9",
     "mavon-editor": "^2.7.3",
+    "node-sass": "^4.12.0",
     "normalize.css": "^5.0.0",
     "nprogress": "^0.2.0",
     "resize-observer-polyfill": "^1.5.0",
